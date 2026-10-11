@@ -2,8 +2,8 @@
   "schema": 1,
   "courseId": 2084,
   "repository": "LearningOS/2026a-rustling-jixia1652-spec",
-  "commit": "9cfca08a4d113c3631944c75a28aabe3fceadecf",
-  "score": 35,
+  "commit": "027695f449a21b84d07a2898c3f494cfe902c053",
+  "score": 36,
   "totalScore": 110,
   "exercises": [
     {
@@ -254,9 +254,9 @@
     {
       "name": "enums3",
       "max": 1,
-      "score": 0,
-      "status": "fail",
-      "exitCode": 1
+      "score": 1,
+      "status": "pass",
+      "exitCode": 0
     },
     {
       "name": "strings1",
@@ -778,9 +778,9 @@
     }
   ],
   "student": "jixia1652-spec",
-  "runId": "38124881703",
+  "runId": "38126576344",
   "runAttempt": "1",
   "upload": {
-    "status": "accepted"
+    "status": "pending"
   }
 }
