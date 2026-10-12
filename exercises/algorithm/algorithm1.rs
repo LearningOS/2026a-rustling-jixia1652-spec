@@ -2,7 +2,6 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -69,14 +68,54 @@ impl<T> LinkedList<T> {
             },
         }
     }
-	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
-	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
+
+    fn into_vec(mut list: LinkedList<T>) -> Vec<T> {
+        let mut v = Vec::new();
+        while let Some(start) = list.start {
+            let node = unsafe { Box::from_raw(start.as_ptr()) };
+            let next = node.next;
+            v.push(node.val);
+            list.start = next;
         }
+        v
+    }
+
+	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+	where
+		T: PartialOrd
+	{
+		let mut ita = Self::into_vec(list_a).into_iter();
+		let mut itb = Self::into_vec(list_b).into_iter();
+		let mut a = ita.next();
+		let mut b = itb.next();
+		let mut result: Vec<T> = Vec::new();
+		loop {
+			match (a.as_ref(), b.as_ref()) {
+				(Some(x), Some(y)) => {
+					if x <= y {
+						result.push(a.take().unwrap());
+						a = ita.next();
+					} else {
+						result.push(b.take().unwrap());
+						b = itb.next();
+					}
+				}
+				(Some(_), None) => {
+					result.push(a.take().unwrap());
+					a = ita.next();
+				}
+				(None, Some(_)) => {
+					result.push(b.take().unwrap());
+					b = itb.next();
+				}
+				(None, None) => break,
+			}
+		}
+		let mut out = Self::new();
+		for item in result {
+			out.add(item);
+		}
+		out
 	}
 }
 
